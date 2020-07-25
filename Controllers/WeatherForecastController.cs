@@ -11,6 +11,8 @@ namespace SEMES.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        // private SemesDbContext dbContext;
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -21,6 +23,7 @@ namespace SEMES.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            // dbContext = SemesDbContextFactory.Create( );
         }
 
         [HttpGet]
