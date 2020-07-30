@@ -4,9 +4,9 @@ This project seeks to create a OpenSource Accounting System with a scalable back
 
 ### United Nation Goas and Our Goals
 
-This project seeks to contribute to financial services that the poor all arround the world can benefit from. Small buisness owners in the develeloping world can use this service (free and automated) to keep track of their accounting as well as to get some key insight in their buisness. Our hope is that this project will unlock new possibilities to small buisness owners all around the world. This story start with Semes.
+On 'Poor Economics', Abhijit Banerjee and Esther Duflo aregues that new fianncial products are key for the development of the poor. Products like this will contribute to the economic development of marginalized communities. 
 
-On 'Poor Economics', Abhijit Banerjee and Esther Duflo aregues that new fianncial products are key for the development of the poor on all arround the world. Products like this will contribute to the economic development of marginalized communities. 
+This project seeks to contribute to financial services that the poor all arround the world can benefit from. Small buisness owners in the develeloping world can use this service (free and automated) to keep track of their accounting as well as to get some key insight in their buisness. Our hope is that this project will unlock new possibilities to small buisness owners all around the world. This story start with Semes.
 
 ### How to to contribute ?
 
