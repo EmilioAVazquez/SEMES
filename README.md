@@ -1,6 +1,6 @@
 # SEMES
 
-This project seeks to create a OpenSource Accounting System with a scalable backend and a responsive front end. This porject was originally created to tailor the needs of Semes, a company from Ecuator seeking to distribute potable water. Throught the United Nation this company's needs was brought to my sight and the opportunity to create an OpenSource Accounting system was born.
+This project seeks to create a OpenSource Accounting System with a scalable backend and a responsive front end. This porject was originally created to tailor the needs of Semes, a company from Ecuator seeking to distribute potable water. Throught the United Nation this company's needs was brought to our sight and the opportunity to create an OpenSource Accounting system was born.
 
 ### United Nation Goas and Our Goals
 
