@@ -10,7 +10,7 @@ On 'Poor Economics', Abhijit Banerjee and Esther Duflo aregues that new fianncia
 
 ### How to to contribute ?
 
-We are building this project on a Backend created on Asp.net and the frontend was created on React Vanilla (seeking a progressive webapp). When contributing please remember the many contrains that technology in the developing wolrd may suffer from. Low bandwidths, unrelaiable communication, and obsolete smartphones to name a few. Please join our Discord channel with any question, comment or comlain. We want to create a community of developers that seek to help the world with code.
+We are building this project on a Backend created on Asp.net and the frontend was created on React Vanilla (seeking a progressive webapp). When contributing please remember the many coonstrains that technology in the developing wolrd may suffer from. Low bandwidths, unrelaiable communication, and obsolete smartphones to name a few. Please join our Discord channel with any question, comment or comlain. We want to create a community of developers that seek to help the world with code.
 
 https://discord.gg/9pMeby
 
