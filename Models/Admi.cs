@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace SEMES
+namespace SEMES.Models
 {
     public class Admi : Person
     {
-        public int AdmiId {get;set;}
+        [Key]
+        public String AdmiId {get;set;}
     }
 }

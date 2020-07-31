@@ -1,10 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace SEMES
+namespace SEMES.Models
 {
-    public class Wearehouse
+    public class Wearhouse
     {
-        public int WearehouseId{get;set;}
+        [Key]
+        public String WearhouseId{get;set;}
         public string Name{get;set;}
         public string Address{get;set;}
     }

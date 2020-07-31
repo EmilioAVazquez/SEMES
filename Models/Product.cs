@@ -1,10 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace SEMES
+namespace SEMES.Models
 {
     public class Product
     {
-        public int ProductId{get;set;}
+        [Key]
+        public String ProductId{get;set;}
         public string Name { get; set; }
         public string Summary { get; set; }
     }

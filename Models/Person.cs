@@ -1,6 +1,6 @@
 using System;
 
-namespace SEMES
+namespace SEMES.Models
 {
     public class Person
     {

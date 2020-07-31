@@ -1,12 +1,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using SEMES.Models;
 
 namespace SEMES
 {
     class SemesDbContext : DbContext {
         public SemesDbContext(DbContextOptions options)
         : base(options) {}
+        public DbSet<Wearhouse> Wearhouse { get; set; } 
+        public DbSet<Transaction> Transaction { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Product> Product { get; set; }
+        public DbSet<Item> Item { get; set; }
+        public DbSet<Admi> Admi { get; set; }
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Client> Client { get; set; }
         // DbSet<T> type properties for other domain models
     }
 
