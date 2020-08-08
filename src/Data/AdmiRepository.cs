@@ -5,6 +5,9 @@ using SEMES.Models;
 
 namespace SEMES.Data
 {
+    /// <summary>
+    /// This class does something.
+    /// </summary>
     class AdmiRepository : IAdmiRepository {
         
         SemesDbContext Context {get;set;}
@@ -31,7 +34,9 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
+    /// <summary>
+    /// This class does something.
+    /// </summary>
     interface IAdmiRepository {
         Task<Admi> GetAdmi(Admi admi);
         Task DeleteAdmi(Admi admi);
