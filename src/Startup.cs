@@ -30,6 +30,12 @@ namespace SEMES
             services.AddControllers();
             services.AddDbContext<SemesDbContext>(options => options.UseNpgsql("Host=34.70.240.234;Database=Stella;Username=postgres;Password=chavita"));
             services.AddTransient<IAdmiRepository, AdmiRepository>();
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
+            services.AddTransient<IWearhouseRepository, WearhouseRepository>();
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
