@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using SEMES.Data;
 
 namespace SEMES
 {
@@ -28,7 +29,7 @@ namespace SEMES
         {
             services.AddControllers();
             services.AddDbContext<SemesDbContext>(options => options.UseNpgsql("Host=34.70.240.234;Database=Stella;Username=postgres;Password=chavita"));
-        
+            services.AddTransient<IAdmiRepository, AdmiRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

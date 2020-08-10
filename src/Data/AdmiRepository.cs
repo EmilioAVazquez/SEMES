@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SEMES.Models;
+using System.Collections.Generic;
 
 namespace SEMES.Data
 {
@@ -19,10 +20,14 @@ namespace SEMES.Data
         }
         public async Task DeleteAdmi(Admi admi){
             var a = await Context.Admi.FindAsync(admi.AdmiId);
+            if(a==null)
+                throw new KeyNotFoundException();
             Context.Admi.Remove(a);
         }
         public async Task UpdateAdmi(Admi admi){
             var a = await Context.Admi.FindAsync(admi.AdmiId);
+            if(a==null)
+                throw new KeyNotFoundException();
             Context.Entry(a).CurrentValues.SetValues(admi);
         }
         public async Task AddAdmi(Admi admi){
@@ -33,15 +38,5 @@ namespace SEMES.Data
         public async Task SaveAsync(){
             await Context.SaveChangesAsync();
         }
-    }
-    /// <summary>
-    /// This class does something.
-    /// </summary>
-    interface IAdmiRepository {
-        Task<Admi> GetAdmi(Admi admi);
-        Task DeleteAdmi(Admi admi);
-        Task UpdateAdmi(Admi admi);
-        Task AddAdmi(Admi admi);
-        Task  SaveAsync();
     }
 }
