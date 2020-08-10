@@ -32,12 +32,4 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
-    interface IProductRepository {
-        Task<Product> GetProduct(Product product);
-        Task DeleteProduct(Product product);
-        Task UpdateProduct(Product product);
-        Task AddProduct(Product product);
-        Task  SaveAsync();
-    }
 }

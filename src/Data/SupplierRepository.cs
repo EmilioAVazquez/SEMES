@@ -32,12 +32,4 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
-    interface ISupplierRepository {
-        Task<Supplier> GetSupplier(Supplier supplier);
-        Task DeleteSupplier(Supplier supplier);
-        Task UpdateSupplier(Supplier supplier);
-        Task AddSupplier(Supplier supplier);
-        Task  SaveAsync();
-    }
 }

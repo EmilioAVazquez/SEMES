@@ -32,12 +32,4 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
-    interface IClientRepository {
-        Task<Client> GetClient(Client client);
-        Task DeleteClient(Client client);
-        Task UpdateClient(Client client);
-        Task AddClient(Client client);
-        Task  SaveAsync();
-    }
 }

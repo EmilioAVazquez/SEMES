@@ -24,7 +24,7 @@ namespace SEMES.Data
                 throw new KeyNotFoundException();
             Context.Admi.Remove(a);
         }
-        public async Task UpdateAdmi(Admi admi){
+         public async Task UpdateAdmi(Admi admi){
             var a = await Context.Admi.FindAsync(admi.AdmiId);
             if(a==null)
                 throw new KeyNotFoundException();

@@ -32,12 +32,4 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
-    interface IWearhouseRepository {
-        Task<Wearhouse> GetWearhouse(Wearhouse wearhouse);
-        Task DeleteWearhouse(Wearhouse wearhouse);
-        Task UpdateWearhouse(Wearhouse wearhouse);
-        Task AddWearhouse(Wearhouse wearhouse);
-        Task  SaveAsync();
-    }
 }

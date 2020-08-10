@@ -32,12 +32,4 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
-    interface ITransactionRepository {
-        Task<Transaction> GetTransaction(Transaction transaction);
-        Task DeleteTransaction(Transaction transaction);
-        Task UpdateTransaction(Transaction transaction);
-        Task AddTransaction(Transaction transaction);
-        Task  SaveAsync();
-    }
 }

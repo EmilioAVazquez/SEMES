@@ -32,12 +32,4 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
-    interface IItemRepository {
-        Task<Item> GetItem(Item item);
-        Task DeleteItem(Item item);
-        Task UpdateItem(Item item);
-        Task AddItem(Item item);
-        Task  SaveAsync();
-    }
 }

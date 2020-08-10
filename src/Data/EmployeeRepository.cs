@@ -32,12 +32,4 @@ namespace SEMES.Data
             await Context.SaveChangesAsync();
         }
     }
-
-    interface IEmployeeRepository {
-        Task<Employee> GetEmployee(Employee employee);
-        Task DeleteEmployee(Employee employee);
-        Task UpdateEmployee(Employee employee);
-        Task AddEmployee(Employee employee);
-        Task  SaveAsync();
-    }
 }
