@@ -38,10 +38,33 @@ In this first iteration of this application we want to develop the system that t
 
 ### Steps to get this project running:
 
-1) Donwload a DotnetCore Docker image on your computer.  
-2) On your container, or mounted directory, clone this repository.
-3) On your container execute:  ```dotnet build```
-4) Start developing.
+ Docker image: 🐳
+ ```docker pull emilioavazquez/semes:0.0```
+ 
+ Recommended Development guide: 
+ After pulling the docker image.
+ 1) Select or create a directory to host this repo and  ```cd``` to it.
+ 2) Clone this repo.
+   ```git clone https://github.com/EmilioAVazquez/SEMES.git```
+ 2) Create a docker container for webapp development.
+ ```docker run --volume [Local Directory Path to Github Repo]:/home/project -p 3000:3000  -d -i emilioavazquez/semes bash```
+ 3) Create a docker container API development
+ ```docker run --volume [Local Directory Path to Github Repo]:/home/project -p 5000:5000  -d -i emilioavazquez/semes bash```
+ 4) Start containers
+  ```docker start [id of generated docker contianers]```
+  ```docker start [id of generated docker contianers]```
+ 5) Bash to container  with ports mapped to 5000(from step 4). 
+  ```docker exec -it [id of contianer mapped to port 5000] bin/bash```
+ 6) Start dotnet.
+  ```cd home/project/src; dotnet build; dotnet run; exit;```
+ 7) Bash to contianer with ports mapped to  3000(from step 3).
+  ```docker exec -it [id of contianer mapped to port 3000] bin/bash```
+ 8) Start npm.
+ ```cd home/project/src;npm build; npm start;exit;```
+ 9) Bash to the contianer you want to develop in.
+ 10) Happy coding! 🎉
+ 
+ 
 
 
 
