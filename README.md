@@ -67,7 +67,7 @@ In this first iteration of this application we want to develop the system that t
 
  ### App Demo:
 
- <img src="./demo.gif" width="48">
+ <img src="./demo.gif" width="48%">
  
 
 
