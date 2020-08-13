@@ -67,8 +67,7 @@ In this first iteration of this application we want to develop the system that t
 
  ### App Demo:
 
-
- ![Alt text](demo.gif){:height="50%" width="50%"}
+ <img src="./demo.gif" width="48">
  
 
 
