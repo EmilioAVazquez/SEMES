@@ -68,7 +68,7 @@ In this first iteration of this application we want to develop the system that t
  ### App Demo:
 
 
- ![Alt text](demo.gif) / ![](demo.gif)
+ ![Alt text](demo.gif){:height="50%" width="50%"}
  
 
 
