@@ -63,5 +63,16 @@ namespace SEMES.Controllers
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
         }
+
+        [Microsoft.AspNetCore.Mvc.HttpGet("{k}")]
+        public async Task GetKLatest(int k, string employeeId )
+        {
+            try{
+                var tsk = await transactionRepo.GetKLatestByUser(k, employeeId);
+                return tsk;     
+            }catch(KeyNotFoundException){
+                throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
+            }
+        }
     }
 }

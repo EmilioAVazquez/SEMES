@@ -63,7 +63,12 @@ In this first iteration of this application we want to develop the system that t
  ```cd home/project/src;npm build; npm start;exit;```
  9) Bash to the contianer you want to develop in.
  10) Happy coding! 🎉
- 
+
+
+ ### App Demo:
+
+
+ ![Alt text](demo.gif) / ![](demo.gif)
  
 
 
