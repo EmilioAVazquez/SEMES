@@ -17,5 +17,6 @@ namespace SEMES.Models
         [ForeignKey("Wearhouse")]
         [Column(Order = 1)]
         public int WearehouseId{set;get;}
+        public double Quantity{get;set;}
     }
 }

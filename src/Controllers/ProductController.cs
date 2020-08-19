@@ -32,6 +32,13 @@ namespace SEMES.Controllers
             var tsk = await productRepo.GetProduct(product);
             return tsk;
         }
+
+        [Microsoft.AspNetCore.Mvc.HttpGet("products/{key}")]
+        public async Task<List<Product>> GetProducts(string key)
+        {
+            var tsk = await productRepo.GetProductsByName(key);
+            return tsk;
+        }
         
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task Put(Product product)

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SEMES.Models;
 using System.Web;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SEMES.Data
 {
@@ -14,6 +16,12 @@ namespace SEMES.Data
         }
         public async Task<Product> GetProduct(Product product){
             return await Context.Product.FindAsync(product.ProductId);
+        }
+        public async Task<List<Product>> GetProductsByName(string name){
+            return  Context.Product.Where(
+                    p => 
+                        EF.Functions.Like(p.Name, name) 
+                ).Take(10).ToList();
         }
         public async Task DeleteProduct(Product product){
             var a = await Context.Product.FindAsync(product.ProductId);

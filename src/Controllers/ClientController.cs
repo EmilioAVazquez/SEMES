@@ -32,6 +32,19 @@ namespace SEMES.Controllers
             var tsk = await clientRepo.GetClient(client);
             return tsk;
         }
+
+        [Microsoft.AspNetCore.Mvc.HttpGet("clients/{key}")]
+        public async Task<List<Client>> GetClients(string key)
+        {
+            try{
+                var phone = Convert.ToInt32(key);
+                var tsk = await clientRepo.GetClientsByPhone(phone);
+                return tsk;
+            }catch(FormatException){
+                var tsk = await clientRepo.GetClientsByName(key);
+                return tsk;
+            }
+        }
         
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task Put(Client client)

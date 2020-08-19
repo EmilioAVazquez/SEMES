@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SEMES.Models;
 using System.Web;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SEMES.Data
 {
@@ -14,6 +16,19 @@ namespace SEMES.Data
         }
         public async Task<Client> GetClient(Client client){
             return await Context.Client.FindAsync(client.ClientId);
+        }
+        public async Task<List<Client>> GetClientsByName(string name){
+            var names = name.Split(null);
+            return  Context.Client.Where(
+                    c => 
+                        EF.Functions.Like(c.FirstName, names[0]) && EF.Functions.Like(c.Lastname, names[1])
+                ).Take(10).ToList();
+        }
+        public async Task<List<Client>> GetClientsByPhone(int phone){
+            return Context.Client.Where(
+                    c => 
+                        c.PhoneNumber == phone
+                ).Take(10).ToList();
         }
         public async Task DeleteClient(Client client){
             var a = await Context.Client.FindAsync(client.ClientId);
