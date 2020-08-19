@@ -14,14 +14,20 @@ namespace SEMES.Controllers
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class TransactionController : ControllerBase
     {
+        public class TransactionAction{
+            public List<Item> Items{get; set;}
+            public Transaction Transaction{get;set;}
+        }
         public ITransactionRepository transactionRepo {get;set;}
+        public IItemRepository itemRepo {get;set;}
 
         private readonly ILogger<TransactionController> _logger;
 
-        public TransactionController(ILogger<TransactionController> logger, ITransactionRepository repo)
+        public TransactionController(ILogger<TransactionController> logger, ITransactionRepository repoA, IItemRepository repoB)
         {
             _logger = logger;
-            transactionRepo = repo;
+            transactionRepo = repoA;
+            itemRepo = repoB;
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
@@ -33,12 +39,12 @@ namespace SEMES.Controllers
             return tsk;
         }
         
-        [Microsoft.AspNetCore.Mvc.HttpPut]
-        public async Task Put(Transaction transaction)
-        {
-            await transactionRepo.AddTransaction(transaction);
-            await transactionRepo.SaveAsync();
-        }
+        // [Microsoft.AspNetCore.Mvc.HttpPut]
+        // public async Task Put(Transaction transaction)
+        // {
+        //     await transactionRepo.AddTransaction(transaction);
+        //     await transactionRepo.SaveAsync();
+        // }
 
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task Post(Transaction transaction)
@@ -75,6 +81,19 @@ namespace SEMES.Controllers
             }catch(KeyNotFoundException){
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
+        }
+
+        [Microsoft.AspNetCore.Mvc.HttpPut]
+        public async Task<Transaction> Put(TransactionAction transaction){
+            List<Task> TaskList = new List<Task>();
+            foreach(Item i in transaction.Items){
+                 TaskList.Add(itemRepo.AddItem(i));
+            }
+            Task.WaitAll(TaskList.ToArray());
+            var newTransaction = await transactionRepo.AddTransaction(transaction.Transaction);
+            await transactionRepo.SaveAsync();
+            await itemRepo.SaveAsync();
+            return newTransaction;
         }
     }
 }

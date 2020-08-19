@@ -25,9 +25,10 @@ namespace SEMES.Data
             var a = await Context.Transaction.FindAsync(transaction.TransactionId);
             Context.Entry(a).CurrentValues.SetValues(transaction);
         }
-        public async Task AddTransaction(Transaction transaction){
+        public async Task<Transaction> AddTransaction(Transaction transaction){
             transaction.TransactionId = Guid.NewGuid().ToString();
             await Context.Transaction.AddAsync(transaction);
+            return transaction;
         }
 
         public async Task SaveAsync(){

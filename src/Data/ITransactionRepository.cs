@@ -13,7 +13,7 @@ namespace SEMES.Data
         Task<Transaction> GetTransaction(Transaction transaction);
         Task DeleteTransaction(Transaction transaction);
         Task UpdateTransaction(Transaction transaction);
-        Task AddTransaction(Transaction transaction);
+        Task<Transaction> AddTransaction(Transaction transaction);
         Task  SaveAsync();
     }
 }
