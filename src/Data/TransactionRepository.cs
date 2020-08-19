@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SEMES.Models;
 using System.Web;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SEMES.Data
 {

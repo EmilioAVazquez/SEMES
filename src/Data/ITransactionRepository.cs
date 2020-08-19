@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SEMES.Models;
+using System.Collections.Generic;
 
 namespace SEMES.Data
 {

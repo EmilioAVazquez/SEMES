@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace SEMES.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         // private SemesDbContext dbContext;

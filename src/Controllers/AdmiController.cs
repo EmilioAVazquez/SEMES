@@ -11,7 +11,7 @@ using System.Web.Http;
 namespace SEMES.Controllers
 {
     [ApiController]
-    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class AdmiController : ControllerBase
     {
         public IAdmiRepository admiRepo {get;set;}
@@ -23,7 +23,6 @@ namespace SEMES.Controllers
             _logger = logger;
             admiRepo = repo;
         }
-
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
         public async Task<Admi> Get(string id)
         {

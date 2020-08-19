@@ -11,7 +11,7 @@ using System.Web.Http;
 namespace SEMES.Controllers
 {
     [ApiController]
-    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class TransactionController : ControllerBase
     {
         public ITransactionRepository transactionRepo {get;set;}
@@ -65,10 +65,12 @@ namespace SEMES.Controllers
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("{k}")]
-        public async Task GetKLatest(int k, string employeeId )
+        public async Task<Transaction> GetKLatest(int k, string employeeId )
         {
             try{
-                var tsk = await transactionRepo.GetKLatestByUser(k, employeeId);
+                var transaction = new Transaction();
+                transaction.TransactionId = employeeId;
+                var tsk = await transactionRepo.GetTransaction(transaction);
                 return tsk;     
             }catch(KeyNotFoundException){
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);

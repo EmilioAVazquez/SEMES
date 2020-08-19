@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SEMES.Models;
 using System.Collections.Generic;
+using Microsoft.FeatureManagement;
 
 namespace SEMES.Data
 {
@@ -12,7 +13,7 @@ namespace SEMES.Data
     class AdmiRepository : IAdmiRepository {
         
         SemesDbContext Context {get;set;}
-        public AdmiRepository(SemesDbContext context){
+        public AdmiRepository(SemesDbContext context, IFeatureManager featureManager){
             Context = context;
         }
         public async Task<Admi> GetAdmi(Admi admi){

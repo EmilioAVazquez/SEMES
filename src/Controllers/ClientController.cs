@@ -11,7 +11,7 @@ using System.Web.Http;
 namespace SEMES.Controllers
 {
     [ApiController]
-    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
         public IClientRepository clientRepo {get;set;}
