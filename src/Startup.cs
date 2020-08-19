@@ -54,7 +54,7 @@ namespace SEMES
                 });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath);
             });
             services.AddSwaggerGen();
             services.AddControllers();
@@ -75,7 +75,6 @@ namespace SEMES
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
