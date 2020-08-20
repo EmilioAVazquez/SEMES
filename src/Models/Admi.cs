@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SEMES.Models
 {
-    /// <summary>My super duper data</summary>
+    /// <summary>Admi Entity</summary>
     public class Admi : Person
     {
-        /// <summary>The unique identifier</summary>
+        /// <example>57f0f150-ca0c-4c54-9f40-27cc6bf5fd10</example>
+        [Required]
         [Key]
         public String AdmiId {get;set;}
         

@@ -21,7 +21,7 @@ namespace SEMES.Data
             var names = name.Split(null);
             return  Context.Client.Where(
                     c => 
-                        EF.Functions.Like(c.FirstName, names[0]) && EF.Functions.Like(c.Lastname, names[1])
+                        EF.Functions.Like(c.FirstName, names[0]) && EF.Functions.Like(c.LastName, names[1])
                 ).Take(10).ToList();
         }
         public async Task<List<Client>> GetClientsByPhone(int phone){

@@ -20,14 +20,16 @@ namespace SEMES.Controllers
         }
         public ITransactionRepository transactionRepo {get;set;}
         public IItemRepository itemRepo {get;set;}
+        public IEmployeeRepository employeeRepo {get;set;}
 
         private readonly ILogger<TransactionController> _logger;
 
-        public TransactionController(ILogger<TransactionController> logger, ITransactionRepository repoA, IItemRepository repoB)
+        public TransactionController(ILogger<TransactionController> logger, ITransactionRepository repoA, IItemRepository repoB, IEmployeeRepository repoC)
         {
             _logger = logger;
             transactionRepo = repoA;
             itemRepo = repoB;
+            employeeRepo = repoC;
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
@@ -38,13 +40,6 @@ namespace SEMES.Controllers
             var tsk = await transactionRepo.GetTransaction(transaction);
             return tsk;
         }
-        
-        // [Microsoft.AspNetCore.Mvc.HttpPut]
-        // public async Task Put(Transaction transaction)
-        // {
-        //     await transactionRepo.AddTransaction(transaction);
-        //     await transactionRepo.SaveAsync();
-        // }
 
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task Post(Transaction transaction)
@@ -70,8 +65,8 @@ namespace SEMES.Controllers
             }
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpGet("{k}")]
-        public async Task<Transaction> GetKLatest(int k, string employeeId )
+        [Microsoft.AspNetCore.Mvc.HttpGet("{employeeId}/{key}")]
+        public async Task<Transaction> GetKLatest(int key, string employeeId )
         {
             try{
                 var transaction = new Transaction();
@@ -85,15 +80,21 @@ namespace SEMES.Controllers
 
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task<Transaction> Put(TransactionAction transaction){
-            List<Task> TaskList = new List<Task>();
-            foreach(Item i in transaction.Items){
-                 TaskList.Add(itemRepo.AddItem(i));
+            try{
+                List<Task> TaskList = new List<Task>();
+                employeeRepo.Get(transaction.Transaction.ClientId);
+                var newTransaction = await transactionRepo.AddTransaction(transaction.Transaction);
+                foreach(Item i in transaction.Items){
+                    i.TransactionId = newTransaction.TransactionId;
+                    TaskList.Add(itemRepo.AddItem(i));
+                }
+                Task.WaitAll(TaskList.ToArray());
+                await transactionRepo.SaveAsync();
+                await itemRepo.SaveAsync();
+                return newTransaction;
+            }catch(KeyNotFoundException){
+                throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
-            Task.WaitAll(TaskList.ToArray());
-            var newTransaction = await transactionRepo.AddTransaction(transaction.Transaction);
-            await transactionRepo.SaveAsync();
-            await itemRepo.SaveAsync();
-            return newTransaction;
         }
     }
 }

@@ -23,7 +23,13 @@ namespace SEMES.Controllers
             _logger = logger;
             admiRepo = repo;
         }
+        /// <summary>
+        /// Gets a Admi entity by its id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A retrived Admi entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
+        // [ProducesResponseType(typeof(Admi), StatusCodes.Status200OK)]
         public async Task<Admi> Get(string id)
         {
             var admi = new Admi();
@@ -31,7 +37,13 @@ namespace SEMES.Controllers
             var tsk = await admiRepo.GetAdmi(admi);
             return tsk;
         }
-        
+
+        /// <summary>
+        /// Adds a new Admi entity with dummy id and returns same Admi enity with 
+        /// updated id.
+        /// </summary>
+        /// <param name="admi"></param>
+        /// <returns>The same Admi enity that was given but with updated id.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task Put(Admi admi)
         {
@@ -39,6 +51,11 @@ namespace SEMES.Controllers
             await admiRepo.SaveAsync();
         }
 
+        /// <summary>
+        /// Updates a given Admi entity. Valid admiId required.
+        /// </summary>
+        /// <param name="admi"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task Post(Admi admi)
         {
@@ -50,6 +67,11 @@ namespace SEMES.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a Admi entity by its id. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
         public async Task Delete(string id)
         {
