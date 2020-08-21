@@ -23,7 +23,11 @@ namespace SEMES.Controllers
             _logger = logger;
             employeeRepo = repo;
         }
-
+        /// <summary>
+        /// Gets a Employee entity by its id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A retrived Employee entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
         public async Task<Employee> Get(string id)
         {
@@ -32,14 +36,22 @@ namespace SEMES.Controllers
             var tsk = await employeeRepo.GetEmployee(employee);
             return tsk;
         }
-        
+        /// <summary>
+        /// Adds a Employee entity by its id.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task Put(Employee employee)
         {
             await employeeRepo.AddEmployee(employee);
             await employeeRepo.SaveAsync();
         }
-
+        /// <summary>
+        /// Updates a given Employee entity. Valid employeeId required.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task Post(Employee employee)
         {
@@ -50,7 +62,11 @@ namespace SEMES.Controllers
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
         }
-
+        /// <summary>
+        /// Deletes a Admi entity by its id. Valid employeeId required. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
         public async Task Delete(string id)
         {

@@ -29,7 +29,6 @@ namespace SEMES.Controllers
         /// <param name="id"></param>
         /// <returns>A retrived Admi entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
-        // [ProducesResponseType(typeof(Admi), StatusCodes.Status200OK)]
         public async Task<Admi> Get(string id)
         {
             var admi = new Admi();
@@ -39,7 +38,7 @@ namespace SEMES.Controllers
         }
 
         /// <summary>
-        /// Adds a new Admi entity with dummy id and returns same Admi enity with 
+        /// Adds a new Admi entity with dummy id and returns same Admi enity BUT with 
         /// updated id.
         /// </summary>
         /// <param name="admi"></param>
@@ -68,7 +67,7 @@ namespace SEMES.Controllers
         }
 
         /// <summary>
-        /// Deletes a Admi entity by its id. 
+        /// Deletes a Admi entity by its id. Valid employeeId required. 
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>

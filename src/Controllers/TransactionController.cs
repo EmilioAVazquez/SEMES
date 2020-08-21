@@ -31,7 +31,11 @@ namespace SEMES.Controllers
             itemRepo = repoB;
             employeeRepo = repoC;
         }
-
+        /// <summary>
+        /// Gets a TransactionAction entity by its id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A retrived TransactionAction entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
         public async Task<Transaction> Get(string id)
         {
@@ -40,7 +44,11 @@ namespace SEMES.Controllers
             var tsk = await transactionRepo.GetTransaction(transaction);
             return tsk;
         }
-
+        /// <summary>
+        /// Updates a given Transaction entity. Valid transactionId required.
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task Post(Transaction transaction)
         {
@@ -51,7 +59,11 @@ namespace SEMES.Controllers
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
         }
-
+        /// <summary>
+        /// Deletes a Transaction, and associated Items, entity by its id. Valid transactionId required. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
         public async Task Delete(string id)
         {
@@ -64,9 +76,13 @@ namespace SEMES.Controllers
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
         }
-
-        [Microsoft.AspNetCore.Mvc.HttpGet("{employeeId}/{key}")]
-        public async Task<Transaction> GetKLatest(int key, string employeeId )
+        /// <summary>
+        /// Gets the latest k transaction performed by an Employee given their id. 
+        /// </summary>
+        /// <param name="k" name="employeeId"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
+        [Microsoft.AspNetCore.Mvc.HttpGet("{employeeId}/{k}")]
+        public async Task<Transaction> GetKLatest(int k, string employeeId )
         {
             try{
                 var transaction = new Transaction();
@@ -77,12 +93,19 @@ namespace SEMES.Controllers
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
         }
-
+        /// <summary>
+        /// Adds a new TransactionAction entity with Items and Transactions dummy ids, and returns same Transaction enity BUT with 
+        /// updated id.
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <returns>Tranasaction with updated id.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task<Transaction> Put(TransactionAction transaction){
             try{
                 List<Task> TaskList = new List<Task>();
-                employeeRepo.Get(transaction.Transaction.ClientId);
+                var e = new Employee();
+                e.EmployeeId = transaction.Transaction.EmployeeId;
+                employeeRepo.GetEmployee(e);
                 var newTransaction = await transactionRepo.AddTransaction(transaction.Transaction);
                 foreach(Item i in transaction.Items){
                     i.TransactionId = newTransaction.TransactionId;
@@ -90,7 +113,6 @@ namespace SEMES.Controllers
                 }
                 Task.WaitAll(TaskList.ToArray());
                 await transactionRepo.SaveAsync();
-                await itemRepo.SaveAsync();
                 return newTransaction;
             }catch(KeyNotFoundException){
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);

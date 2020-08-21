@@ -23,7 +23,12 @@ namespace SEMES.Controllers
             _logger = logger;
             clientRepo = repo;
         }
-
+        
+        /// <summary>
+        /// Gets a Client entity by its id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A retrived Client entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
         public async Task<Client> Get(string id)
         {
@@ -32,7 +37,11 @@ namespace SEMES.Controllers
             var tsk = await clientRepo.GetClient(client);
             return tsk;
         }
-
+        /// <summary>
+        /// Gets a List of possible Clients by phone number string or a firstName_Lastname string
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>A list of possible Clients.</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("clients/{key}")]
         public async Task<List<Client>> GetClients(string key)
         {
@@ -45,7 +54,12 @@ namespace SEMES.Controllers
                 return tsk;
             }
         }
-        
+        /// <summary>
+        /// Adds a new Client entity with dummy id and returns same Client enity BUT with 
+        /// updated id.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns>The same Admi enity that was given but with updated id.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task Put(Client client)
         {
@@ -53,6 +67,11 @@ namespace SEMES.Controllers
             await clientRepo.SaveAsync();
         }
 
+        /// <summary>
+        /// Updates a given Client entity. Valid clientId required.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task Post(Client client)
         {
@@ -63,7 +82,11 @@ namespace SEMES.Controllers
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
         }
-
+        /// <summary>
+        /// Deletes a Client entity by its id. Valid clientId required. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
         public async Task Delete(string id)
         {

@@ -23,7 +23,11 @@ namespace SEMES.Controllers
             _logger = logger;
             productRepo = repo;
         }
-
+        /// <summary>
+        /// Gets a Product entity by its id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A retrived Product entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
         public async Task<Product> Get(string id)
         {
@@ -32,21 +36,36 @@ namespace SEMES.Controllers
             var tsk = await productRepo.GetProduct(product);
             return tsk;
         }
-
+        /// <summary>
+        /// Gets a list of 10 possible Product entities given a key.
+        /// For instance key = "aple", will return a list of product
+        /// with names similar to "aple" like "apple"
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>List of 10 Products with similar names as key</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("products/{key}")]
         public async Task<List<Product>> GetProducts(string key)
         {
             var tsk = await productRepo.GetProductsByName(key);
             return tsk;
         }
-        
+        /// <summary>
+        /// Adds a new Product entity with dummy id and returns same Product enity BUT with 
+        /// updated id.
+        /// </summary>
+        /// <param name="admi"></param>
+        /// <returns>The same Product enity that was given but with updated id.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task Put(Product product)
         {
             await productRepo.AddProduct(product);
             await productRepo.SaveAsync();
         }
-
+        /// <summary>
+        /// Updates a given Product entity. Valid productId required.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task Post(Product product)
         {
@@ -57,7 +76,11 @@ namespace SEMES.Controllers
                 throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
             }
         }
-
+        /// <summary>
+        /// Deletes a Product entity by its id. Valid productId required. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
         public async Task Delete(string id)
         {
