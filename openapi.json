@@ -21,13 +21,16 @@
         "tags": [
           "Admi"
         ],
+        "summary": "Gets a Admi entity by its id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -59,13 +62,16 @@
         "tags": [
           "Admi"
         ],
+        "summary": "Deletes a Admi entity by its id. Valid employeeId required.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -82,7 +88,9 @@
         "tags": [
           "Admi"
         ],
+        "summary": "Adds a new Admi entity with dummy id and returns same Admi enity BUT with \r\nupdated id.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -111,7 +119,9 @@
         "tags": [
           "Admi"
         ],
+        "summary": "Updates a given Admi entity. Valid admiId required.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -142,13 +152,16 @@
         "tags": [
           "Client"
         ],
+        "summary": "Gets a Client entity by its id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -180,13 +193,16 @@
         "tags": [
           "Client"
         ],
+        "summary": "Deletes a Client entity by its id. Valid clientId required.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -203,13 +219,16 @@
         "tags": [
           "Client"
         ],
+        "summary": "Gets a List of possible Clients by phone number string or a firstName_Lastname string",
         "parameters": [
           {
             "name": "key",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -252,7 +271,9 @@
         "tags": [
           "Client"
         ],
+        "summary": "Adds a new Client entity with dummy id and returns same Client enity BUT with \r\nupdated id.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -281,7 +302,9 @@
         "tags": [
           "Client"
         ],
+        "summary": "Updates a given Client entity. Valid clientId required.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -312,13 +335,16 @@
         "tags": [
           "Employee"
         ],
+        "summary": "Gets a Employee entity by its id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -350,13 +376,16 @@
         "tags": [
           "Employee"
         ],
+        "summary": "Deletes a Admi entity by its id. Valid employeeId required.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -373,7 +402,9 @@
         "tags": [
           "Employee"
         ],
+        "summary": "Adds a Employee entity by its id.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -402,7 +433,9 @@
         "tags": [
           "Employee"
         ],
+        "summary": "Updates a given Employee entity. Valid employeeId required.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -466,87 +499,6 @@
             }
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "Item"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/Item": {
-      "put": {
-        "tags": [
-          "Item"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Item"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
       }
     },
     "/api/Product/{id}": {
@@ -554,13 +506,16 @@
         "tags": [
           "Product"
         ],
+        "summary": "Gets a Product entity by its id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -592,13 +547,16 @@
         "tags": [
           "Product"
         ],
+        "summary": "Deletes a Product entity by its id. Valid productId required.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -615,13 +573,16 @@
         "tags": [
           "Product"
         ],
+        "summary": "Gets a list of 10 possible Product entities given a key.\r\nFor instance key = \"aple\", will return a list of product\r\nwith names similar to \"aple\" like \"apple\"",
         "parameters": [
           {
             "name": "key",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -664,6 +625,7 @@
         "tags": [
           "Product"
         ],
+        "summary": "Adds a new Product entity with dummy id and returns same Product enity BUT with \r\nupdated id.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -693,7 +655,9 @@
         "tags": [
           "Product"
         ],
+        "summary": "Updates a given Product entity. Valid productId required.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -845,13 +809,16 @@
         "tags": [
           "Transaction"
         ],
+        "summary": "Gets a TransactionAction entity by its id.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -883,13 +850,16 @@
         "tags": [
           "Transaction"
         ],
+        "summary": "Deletes a Transaction, and associated Items, entity by its id. Valid transactionId required.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string",
+              "description": "",
               "nullable": true
             }
           }
@@ -906,7 +876,9 @@
         "tags": [
           "Transaction"
         ],
+        "summary": "Updates a given Transaction entity. Valid transactionId required.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -935,7 +907,9 @@
         "tags": [
           "Transaction"
         ],
+        "summary": "Adds a new TransactionAction entity with Items and Transactions dummy ids, and returns same Transaction enity BUT with \r\nupdated id.",
         "requestBody": {
+          "description": "",
           "content": {
             "application/json": {
               "schema": {
@@ -978,7 +952,7 @@
         }
       }
     },
-    "/api/Transaction/{k}": {
+    "/api/Transaction/{employeeId}/{k}": {
       "get": {
         "tags": [
           "Transaction"
@@ -995,7 +969,8 @@
           },
           {
             "name": "employeeId",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "nullable": true
@@ -1189,223 +1164,313 @@
   "components": {
     "schemas": {
       "Admi": {
+        "required": [
+          "admiId",
+          "email",
+          "firstName",
+          "lastName",
+          "phoneNumber"
+        ],
         "type": "object",
         "properties": {
           "admiId": {
             "type": "string",
-            "description": "The unique identifier",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "description": "Everyone needs a name",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "firstName": {
             "type": "string",
-            "nullable": true
+            "description": "First Name",
+            "example": "John"
           },
-          "lastname": {
+          "lastName": {
             "type": "string",
-            "nullable": true
+            "description": "Last Name",
+            "example": "Lorca"
           },
           "phoneNumber": {
             "type": "integer",
-            "format": "int32"
+            "description": "Phone number in integer with no special characters.\r\nLeaving space with 0 for special code.",
+            "format": "int64",
+            "example": 14442119013
           },
           "email": {
             "type": "string",
-            "nullable": true
+            "example": "somthing@something.com"
           },
           "address": {
             "type": "string",
-            "nullable": true
+            "description": "Address given by a geolocation string",
+            "nullable": true,
+            "example": "{lat: -34, lng: 151}"
           }
         },
         "additionalProperties": false,
-        "description": "My super duper data"
+        "description": "Admi Entity"
       },
       "Client": {
+        "required": [
+          "clientId",
+          "email",
+          "firstName",
+          "lastName",
+          "phoneNumber"
+        ],
         "type": "object",
         "properties": {
           "clientId": {
             "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "description": "Everyone needs a name",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "firstName": {
             "type": "string",
-            "nullable": true
+            "description": "First Name",
+            "example": "John"
           },
-          "lastname": {
+          "lastName": {
             "type": "string",
-            "nullable": true
+            "description": "Last Name",
+            "example": "Lorca"
           },
           "phoneNumber": {
             "type": "integer",
-            "format": "int32"
+            "description": "Phone number in integer with no special characters.\r\nLeaving space with 0 for special code.",
+            "format": "int64",
+            "example": 14442119013
           },
           "email": {
             "type": "string",
-            "nullable": true
+            "example": "somthing@something.com"
           },
           "address": {
             "type": "string",
-            "nullable": true
+            "description": "Address given by a geolocation string",
+            "nullable": true,
+            "example": "{lat: -34, lng: 151}"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Client Entity"
       },
       "Employee": {
+        "required": [
+          "email",
+          "employeeId",
+          "firstName",
+          "lastName",
+          "phoneNumber"
+        ],
         "type": "object",
         "properties": {
           "employeeId": {
             "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "description": "Everyone needs a name",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "firstName": {
             "type": "string",
-            "nullable": true
+            "description": "First Name",
+            "example": "John"
           },
-          "lastname": {
+          "lastName": {
             "type": "string",
-            "nullable": true
+            "description": "Last Name",
+            "example": "Lorca"
           },
           "phoneNumber": {
             "type": "integer",
-            "format": "int32"
+            "description": "Phone number in integer with no special characters.\r\nLeaving space with 0 for special code.",
+            "format": "int64",
+            "example": 14442119013
           },
           "email": {
             "type": "string",
-            "nullable": true
+            "example": "somthing@something.com"
           },
           "address": {
             "type": "string",
-            "nullable": true
+            "description": "Address given by a geolocation string",
+            "nullable": true,
+            "example": "{lat: -34, lng: 151}"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Employee Entity"
       },
       "Item": {
+        "required": [
+          "itemId",
+          "productId",
+          "quantity"
+        ],
         "type": "object",
         "properties": {
           "itemId": {
             "type": "string",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "productId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "description": "Product Associated with Transaction.",
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Transaction asociated with this item.",
+            "nullable": true,
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "dateAdded": {
             "type": "string",
-            "format": "date-time"
+            "description": "Added in the backend.",
+            "format": "date-time",
+            "example": "2020-12-01T00:00:00.0000000"
           },
           "wearehouseId": {
             "type": "integer",
+            "description": "Wearhouse associated with this transaction.",
             "format": "int32"
           },
           "quantity": {
             "type": "number",
-            "format": "double"
+            "description": "Number or quantity of a given product.This in the unit of the \r\nproduct itself.",
+            "format": "double",
+            "example": 2
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Item Entity"
       },
       "Product": {
+        "required": [
+          "name",
+          "price",
+          "productId",
+          "unit"
+        ],
         "type": "object",
         "properties": {
           "productId": {
             "type": "string",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "example": "Water"
           },
           "summary": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "example": "Water bonafon inported. 0 sodium. 0% clorine"
+          },
+          "price": {
+            "type": "number",
+            "description": "This is on the wearhouse currency like dollar, or equatorian peso.",
+            "format": "double",
+            "example": 12
+          },
+          "unit": {
+            "type": "string",
+            "description": "Units that the price is made on. Like L, kg, package, etc.",
+            "example": "mL"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Product Entity"
       },
       "Supplier": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "phoneNumber",
+          "supplierId"
+        ],
         "type": "object",
         "properties": {
           "supplierId": {
             "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "description": "Everyone needs a name",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "firstName": {
             "type": "string",
-            "nullable": true
+            "description": "First Name",
+            "example": "John"
           },
-          "lastname": {
+          "lastName": {
             "type": "string",
-            "nullable": true
+            "description": "Last Name",
+            "example": "Lorca"
           },
           "phoneNumber": {
             "type": "integer",
-            "format": "int32"
+            "description": "Phone number in integer with no special characters.\r\nLeaving space with 0 for special code.",
+            "format": "int64",
+            "example": 14442119013
           },
           "email": {
             "type": "string",
-            "nullable": true
+            "example": "somthing@something.com"
           },
           "address": {
             "type": "string",
-            "nullable": true
+            "description": "Address given by a geolocation string",
+            "nullable": true,
+            "example": "{lat: -34, lng: 151}"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Supplier Entity"
       },
       "Transaction": {
+        "required": [
+          "date",
+          "employeeId",
+          "total",
+          "transactionId",
+          "verified"
+        ],
         "type": "object",
         "properties": {
           "transactionId": {
             "type": "string",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "date": {
             "type": "string",
-            "format": "date-time"
+            "description": "Date and time when this transaction finished. Can be dummy for creation.",
+            "format": "date-time",
+            "example": "2017-02-21T00:00:00.0000000"
           },
           "location": {
             "type": "string",
-            "nullable": true
+            "description": "Coordinate of where each transaction took place.",
+            "nullable": true,
+            "example": "{lat: -34, lng: 151}"
           },
           "employeeId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "description": "Id of the employee who made this transaction.",
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "verified": {
-            "type": "boolean"
-          },
-          "itemId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "boolean",
+            "description": "Has this transaction been verified by admi.",
+            "example": true
           },
           "clientId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "description": "Id the of the client beins sold to.",
+            "nullable": true,
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
+          },
+          "total": {
+            "type": "number",
+            "description": "The total of the items selected.This will be computed in the back end.!--\r\nCan be dummy when creating.",
+            "format": "double",
+            "example": 350.12
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Transaction Entity"
       },
       "TransactionAction": {
         "type": "object",
@@ -1424,22 +1489,29 @@
         "additionalProperties": false
       },
       "Wearhouse": {
+        "required": [
+          "name",
+          "wearhouseId"
+        ],
         "type": "object",
         "properties": {
           "wearhouseId": {
             "type": "string",
-            "nullable": true
+            "example": "57f0f150-ca0c-4c54-9f40-27cc6bf5fd10"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "example": "La otra vaina"
           },
           "address": {
             "type": "string",
-            "nullable": true
+            "description": "Address given by a geolocation string",
+            "nullable": true,
+            "example": "{lat: -34, lng: 151}"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Wearhouse Entity"
       },
       "WeatherForecast": {
         "type": "object",
