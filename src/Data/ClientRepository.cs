@@ -16,6 +16,10 @@ namespace SEMES.Data
         }
         public async Task<Client> GetClient(Client client){
             return await Context.Client.FindAsync(client.ClientId);
+        }       
+        public async Task<List<Client>> GetClientsByEmployee(string id){
+            // Get list of most the 10 frequen used products given a employee
+            return Context.Client.ToList();
         }
         public async Task<List<Client>> GetClientsByName(string name){
             var names = name.Split(null);

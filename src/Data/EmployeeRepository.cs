@@ -23,9 +23,10 @@ namespace SEMES.Data
             var a = await Context.Employee.FindAsync(employee.EmployeeId);
             Context.Entry(a).CurrentValues.SetValues(employee);
         }
-        public async Task AddEmployee(Employee employee){
+        public async Task<Employee> AddEmployee(Employee employee){
             employee.EmployeeId = Guid.NewGuid().ToString();
             await Context.Employee.AddAsync(employee);
+            return employee;
         }
 
         public async Task SaveAsync(){

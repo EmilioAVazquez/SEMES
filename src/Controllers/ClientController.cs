@@ -54,6 +54,17 @@ namespace SEMES.Controllers
                 return tsk;
             }
         }
+                /// <summary>
+        /// Gets a list of the most frequently used products by Employee.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List of the products of the usser</returns>
+        [Microsoft.AspNetCore.Mvc.HttpGet("employee/{id}")]
+        public async Task<List<Client>> GetClientsByEmployee(string id)
+        {
+            var tsk = await clientRepo.GetClientsByEmployee( id);
+            return tsk;
+        }
         /// <summary>
         /// Adds a new Client entity with dummy id and returns same Client enity BUT with 
         /// updated id.

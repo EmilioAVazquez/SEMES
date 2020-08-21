@@ -66,6 +66,7 @@ namespace SEMES
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IWearhouseRepository, WearhouseRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
         }

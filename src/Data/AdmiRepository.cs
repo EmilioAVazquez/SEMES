@@ -31,9 +31,10 @@ namespace SEMES.Data
                 throw new KeyNotFoundException();
             Context.Entry(a).CurrentValues.SetValues(admi);
         }
-        public async Task AddAdmi(Admi admi){
+        public async Task<Admi> AddAdmi(Admi admi){
             admi.AdmiId = Guid.NewGuid().ToString();
             await Context.Admi.AddAsync(admi);
+            return admi;
         }
 
         public async Task SaveAsync(){

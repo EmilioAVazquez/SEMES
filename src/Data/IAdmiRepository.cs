@@ -12,7 +12,7 @@ namespace SEMES.Data
         Task<Admi> GetAdmi(Admi admi);
         Task DeleteAdmi(Admi admi);
         Task UpdateAdmi(Admi admi);
-        Task AddAdmi(Admi admi);
+        Task<Admi> AddAdmi(Admi admi);
         Task  SaveAsync();
     }
 }

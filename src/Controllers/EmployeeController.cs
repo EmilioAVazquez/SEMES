@@ -42,10 +42,11 @@ namespace SEMES.Controllers
         /// <param name="employee"></param>
         /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
-        public async Task Put(Employee employee)
+        public async Task<Employee> Put(Employee employee)
         {
-            await employeeRepo.AddEmployee(employee);
+            var e = await employeeRepo.AddEmployee(employee);
             await employeeRepo.SaveAsync();
+            return e;
         }
         /// <summary>
         /// Updates a given Employee entity. Valid employeeId required.

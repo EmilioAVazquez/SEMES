@@ -44,10 +44,11 @@ namespace SEMES.Controllers
         /// <param name="admi"></param>
         /// <returns>The same Admi enity that was given but with updated id.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
-        public async Task Put(Admi admi)
+        public async Task<Admi> Put(Admi admi)
         {
-            await admiRepo.AddAdmi(admi);
+            var a = await admiRepo.AddAdmi(admi);
             await admiRepo.SaveAsync();
+            return a;
         }
 
         /// <summary>

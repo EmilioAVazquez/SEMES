@@ -44,9 +44,20 @@ namespace SEMES.Controllers
         /// <param name="key"></param>
         /// <returns>List of 10 Products with similar names as key</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet("products/{key}")]
-        public async Task<List<Product>> GetProducts(string key)
+        public async Task<List<Product>> GetProductsByNanem(string key)
         {
             var tsk = await productRepo.GetProductsByName(key);
+            return tsk;
+        }
+        /// <summary>
+        /// Gets a list of the most frequently used products by Employee.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List of the products of the usser</returns>
+        [Microsoft.AspNetCore.Mvc.HttpGet("employee/{id}")]
+        public async Task<List<Product>> GetProductsByEmployee(string id)
+        {
+            var tsk = await productRepo.GetProductsByEmployee(id);
             return tsk;
         }
         /// <summary>
@@ -56,10 +67,11 @@ namespace SEMES.Controllers
         /// <param name="admi"></param>
         /// <returns>The same Product enity that was given but with updated id.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
-        public async Task Put(Product product)
+        public async Task<Product> Put(Product product)
         {
-            await productRepo.AddProduct(product);
+            var p = await productRepo.AddProduct(product);
             await productRepo.SaveAsync();
+            return p;
         }
         /// <summary>
         /// Updates a given Product entity. Valid productId required.

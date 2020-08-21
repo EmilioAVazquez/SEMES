@@ -13,6 +13,7 @@ namespace SEMES.Data
         Task<Client> GetClient(Client client);
         Task<List<Client>> GetClientsByName(string name);
         Task<List<Client>> GetClientsByPhone(int phone);
+        Task<List<Client>> GetClientsByEmployee(string id);
         Task DeleteClient(Client client);
         Task UpdateClient(Client client);
         Task AddClient(Client client);

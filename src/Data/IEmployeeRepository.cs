@@ -12,7 +12,7 @@ namespace SEMES.Data
         Task<Employee> GetEmployee(Employee employee);
         Task DeleteEmployee(Employee employee);
         Task UpdateEmployee(Employee employee);
-        Task AddEmployee(Employee employee);
+        Task<Employee> AddEmployee(Employee employee);
         Task  SaveAsync();
     }
 }
