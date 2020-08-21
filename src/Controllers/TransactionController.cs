@@ -14,8 +14,11 @@ namespace SEMES.Controllers
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class TransactionController : ControllerBase
     {
+        /// <summary>TransactionAction Entity</summary>
         public class TransactionAction{
+            /// <summary>List of Items associated with the given Transaction</summary>
             public List<Item> Items{get; set;}
+            /// <summary>TransactionAction associated with</summary>
             public Transaction Transaction{get;set;}
         }
         public ITransactionRepository transactionRepo {get;set;}
