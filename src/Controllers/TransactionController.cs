@@ -35,6 +35,21 @@ namespace SEMES.Controllers
             employeeRepo = repoC;
         }
         /// <summary>
+        /// Gets a Transaction List of the latest transaction performed by a employee given its id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A retrived Transaction List entity.</returns>
+        [Microsoft.AspNetCore.Mvc.HttpGet("employee/{employeeId}")]
+        public async Task<List<Transaction>> GetByEmployee(string employeeId)
+        {
+            try{
+                var tsk = await transactionRepo.GetTransactionsByEmployee(employeeId);
+                return tsk;
+            }catch(KeyNotFoundException ){
+                throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
+            }
+        }
+        /// <summary>
         /// Gets a TransactionAction entity by its id.
         /// </summary>
         /// <param name="id"></param>

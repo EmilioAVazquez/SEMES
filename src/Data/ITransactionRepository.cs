@@ -11,6 +11,7 @@ namespace SEMES.Data
     /// </summary>
     public interface ITransactionRepository {
         Task<Transaction> GetTransaction(Transaction transaction);
+        Task<List<Transaction>> GetTransactionsByEmployee(string employeeId);
         Task DeleteTransaction(Transaction transaction);
         Task UpdateTransaction(Transaction transaction);
         Task<Transaction> AddTransaction(Transaction transaction);

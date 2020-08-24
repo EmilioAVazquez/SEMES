@@ -17,6 +17,11 @@ namespace SEMES.Data
         public async Task<Transaction> GetTransaction(Transaction transaction){
             return await Context.Transaction.FindAsync(transaction.TransactionId);
         }
+        public async Task<List<Transaction>> GetTransactionsByEmployee(string id){
+            return  Context.Transaction.Where(
+                    t => t.EmployeeId == id 
+                ).OrderByDescending(t=> t.Date).Take(10).ToList();
+        }
         public async Task DeleteTransaction(Transaction transaction){
             var a = await Context.Transaction.FindAsync(transaction.TransactionId);
             Context.Transaction.Remove(a);
