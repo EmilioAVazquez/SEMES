@@ -16,9 +16,26 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { connect, useDispatch } from 'react-redux';
 
-function TransactionHistory() {
+
+function TransactionHistory(props:any) {
+
+  const dispatch = useDispatch();
+
   const [open, setOpen] = React.useState(false);
+
+  dispatch({
+    type: 'UPDATE_TRANSACTIONS',
+    payload: '21',
+  });
+  
+  dispatch({
+    type: 'UPDATE_TRANSACTIONS_SUCCESS',
+    payload: {
+        transactions: []
+    }
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,21 +45,20 @@ function TransactionHistory() {
     setOpen(false);
   };
 
-  function generate(element: React.ReactElement) {
+  function generate(element: React.ReactElement) { 
     return [0, 1, 2, 3, 4, 5, 6].map((value) =>
       React.cloneElement(element, {
         key: value,
       }),
     );
   }
-  
 
   return (
       <>
         <List component="nav" aria-label="secondary mailbox folders">
         {generate(
             <ListItem >
-            <ListItemText primary="12:01 pm Client: None Items: 2water" />
+            <ListItemText primary={props.transactionHistory} />
             <ListItemSecondaryAction>
                         <IconButton edge="end" aria-label="delete" onClick={handleClickOpen}>
                         <DeleteIcon />
@@ -73,8 +89,11 @@ function TransactionHistory() {
             </ListItem>)}
         </List>
     </>
-
   );
 }
 
-export default TransactionHistory;
+function mapStateToProps(state:any) {
+  return { transactionHistory: state.transactionHistory[0] }
+}
+
+export default connect(mapStateToProps)(TransactionHistory);

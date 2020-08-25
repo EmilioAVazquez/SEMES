@@ -1,8 +1,8 @@
-import TransactionHistoryReducer from './TransactionHistory';
+import transactionHistoryReducer from './transactionHistoryReducer';
 import {combineReducers} from 'redux';
 
 const allReducers = combineReducers({
-    TransactionHistory : TransactionHistoryReducer
+    transactionHistory : transactionHistoryReducer
 });
 
 export default allReducers;
