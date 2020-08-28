@@ -17,7 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect, useDispatch } from 'react-redux';
-
+import {TransactionApi} from '../SemesApi';
 
 function TransactionHistory(props:any) {
 
@@ -25,17 +25,7 @@ function TransactionHistory(props:any) {
 
   const [open, setOpen] = React.useState(false);
 
-  dispatch({
-    type: 'UPDATE_TRANSACTIONS',
-    payload: '21',
-  });
-  
-  dispatch({
-    type: 'UPDATE_TRANSACTIONS_SUCCESS',
-    payload: {
-        transactions: []
-    }
-  });
+  var transactionHistoryApi = new TransactionApi();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,44 +46,47 @@ function TransactionHistory(props:any) {
   return (
       <>
         <List component="nav" aria-label="secondary mailbox folders">
-        {generate(
-            <ListItem >
-            <ListItemText primary={props.transactionHistory} />
-            <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete" onClick={handleClickOpen}>
-                        <DeleteIcon />
-                        </IconButton>
-                        <Dialog
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
-                        >
-                            <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
-                            <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                                Let Google help apps determine location. This means sending anonymous location data to
-                                Google, even when no apps are running.
-                            </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                            <Button onClick={handleClose} color="primary">
-                                Disagree
-                            </Button>
-                            <Button onClick={handleClose} color="primary" autoFocus>
-                                Agree
-                            </Button>
-                            </DialogActions>
-                        </Dialog>
-            </ListItemSecondaryAction>
-            </ListItem>)}
+        {props.transactionHistory.map((value:any) => {
+          const labelId = value.date;
+          return (
+              <ListItem >
+              <ListItemText primary={labelId} />
+              <ListItemSecondaryAction>
+                          <IconButton edge="end" aria-label="delete" onClick={handleClickOpen}>
+                          <DeleteIcon />
+                          </IconButton>
+                          <Dialog
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="alert-dialog-title"
+                              aria-describedby="alert-dialog-description"
+                          >
+                              <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+                              <DialogContent>
+                              <DialogContentText id="alert-dialog-description">
+                                  Let Google help apps determine location. This means sending anonymous location data to
+                                  Google, even when no apps are running.
+                              </DialogContentText>
+                              </DialogContent>
+                              <DialogActions>
+                              <Button onClick={handleClose} color="primary">
+                                  Disagree
+                              </Button>
+                              <Button onClick={handleClose} color="primary" autoFocus>
+                                  Agree
+                              </Button>
+                              </DialogActions>
+                          </Dialog>
+              </ListItemSecondaryAction>
+              </ListItem>);
+          })}
         </List>
     </>
   );
 }
 
 function mapStateToProps(state:any) {
-  return { transactionHistory: state.transactionHistory[0] }
+  return { transactionHistory: state.transactionHistory}
 }
 
 export default connect(mapStateToProps)(TransactionHistory);

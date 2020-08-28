@@ -15,7 +15,7 @@ import { Observable, of } from 'rxjs';
 import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { map, concatMap } from 'rxjs/operators';
 
-export const BASE_PATH = 'https://virtserver.swaggerhub.com/EmilioAVazquez/Semes/1.0.0-oas3/'.replace(/\/+$/, '');
+export const BASE_PATH = 'https://virtserver.swaggerhub.com/EmilioAVazquez/Semes/v0/'.replace(/\/+$/, '');
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path

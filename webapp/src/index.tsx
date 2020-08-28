@@ -8,14 +8,16 @@ import {Provider} from 'react-redux';
 import rootEpic from './Epic';
 import {  createStore, applyMiddleware , compose} from 'redux'
 import { ofType, combineEpics, createEpicMiddleware } from 'redux-observable';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 const epicMiddleware = createEpicMiddleware();
-
-epicMiddleware.run(rootEpic)
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   allReducers,
-  applyMiddleware(epicMiddleware));
-
+  composeEnhancers(
+    applyMiddleware(epicMiddleware))
+  );
+epicMiddleware.run(rootEpic);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
