@@ -44,8 +44,12 @@ namespace SEMES.Controllers
         [Microsoft.AspNetCore.Mvc.HttpPut]
         public async Task<Employee> Put(Employee employee)
         {
-            var e = await employeeRepo.AddEmployee(employee);
-            await employeeRepo.SaveAsync();
+            //var e = await employeeRepo.AddEmployee(employee);
+            //await employeeRepo.SaveAsync();
+
+            // Create token
+            // Generate email
+            // Send email
             return e;
         }
         /// <summary>
