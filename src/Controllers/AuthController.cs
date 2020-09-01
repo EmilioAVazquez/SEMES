@@ -17,15 +17,16 @@ namespace SEMES.Controllers
     {
         public IEmployeeRepository employeeRepo {get;set;}
         private JWT jwtService ;
+        private UserManager userManager;
 
         private readonly ILogger<AdmiController> _logger;
 
-        public AuthController(ILogger<AuthController> logger, IEmployeeRepository repo)
+        public AuthController(ILogger<AuthController> logger, IEmployeeRepository repo, UserManager<IdentityUser> _userManager)
         {
             _logger = logger;
             jwtService = new JWT();
             employeeRepo = repo;
-            
+            userManager = _userManager;
         }
         /// <summary>
         /// Given a registration token and a user filled model, this endpoint verifies the tokeb and adds the 
@@ -58,12 +59,13 @@ namespace SEMES.Controllers
         public async Task<string> Login(UserModel userModel)
         {
             // Verify user credentials
-            var user = AuthenticateUser(userModel);
-            if(user == null)
-                 throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
+            var flag =  userManager.CheckPassword(employeeRepo.GetEmployee(new Employee(){Email=userModel.email}), userModel.password);
             // return sign-in token
             var tokenString = jwtService.GenerateJSONWebToken(user); 
-            return tokenString;
+            await flag;
+            if(flagh)
+                return tokenString;
+            throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
         }
 
         private UserModel AuthenticateUser(UserModel login)    

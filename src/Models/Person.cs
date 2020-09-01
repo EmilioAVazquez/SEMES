@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SEMES.Models
 {
-    public class Person
+    public class Person: IdentityUser
     {
         /// <summary>
         /// First Name

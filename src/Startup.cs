@@ -31,6 +31,27 @@ namespace SEMES
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Identity services
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
             // Add authetication services
             services..AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
             .AddJwtBearer(options =>    
@@ -76,6 +97,7 @@ namespace SEMES
             services.AddFeatureManagement();
             // services.AddDbContext<SemesDbContext>(options => options.UseNpgsql("Host=34.70.240.234;Database=Stella;Username=postgres;Password=chavita"));
             services.AddDbContext<SemesDbContext>(options => options.UseInMemoryDatabase(databaseName:"Products Test"));
+            services.AddDefaultIdentity<Person>().AddEntityFrameworkStores<SemesDbContext>();
             services.AddTransient<IAdmiRepository, AdmiRepository>();
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -84,11 +106,16 @@ namespace SEMES
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IWearhouseRepository, WearhouseRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
+            // Email Services
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseIdentity();
+            app.UseAuthentication();
             // Enables JWT authentication
             app.UseAuthentication();  
             // Enable middleware to serve generated Swagger as a JSON endpoint.
