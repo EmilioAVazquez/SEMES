@@ -31,6 +31,21 @@ namespace SEMES
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add authetication services
+            services..AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
+            .AddJwtBearer(options =>    
+            {    
+                options.TokenValidationParameters = new TokenValidationParameters    
+                {    
+                    ValidateIssuer = true,    
+                    ValidateAudience = true,    
+                    ValidateLifetime = true,    
+                    ValidateIssuerSigningKey = true,    
+                    ValidIssuer = Configuration["Jwt:Issuer"],    
+                    ValidAudience = Configuration["Jwt:Issuer"],    
+                    IssuerSigningKey = new SymmetricSecurityKey("myFirstKey")    
+                };    
+            });    
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -74,6 +89,8 @@ namespace SEMES
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Enables JWT authentication
+            app.UseAuthentication();  
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),

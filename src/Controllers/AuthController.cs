@@ -12,13 +12,13 @@ namespace SEMES.Controllers
 {
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-    public class AdmiController : ControllerBase
+    public class AuthController : ControllerBase
     {
         public IAdmiRepository admiRepo {get;set;}
 
         private readonly ILogger<AdmiController> _logger;
 
-        public AdmiController(ILogger<AdmiController> logger, IAdmiRepository repo)
+        public AuthController(ILogger<AuthController> logger, IEmployeeRepository repo)
         {
             _logger = logger;
             admiRepo = repo;
@@ -29,11 +29,16 @@ namespace SEMES.Controllers
         /// <param name="id"></param>
         /// <returns>A retrived Admi entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost()]
-        public async Task<Person> VerifyUser(UserVerification userVerification)
+        public async Task<string> VerifyUser(UserVerification userVerification)
         {
             // Verify user token
+            if(ValidateJSONWebToken(userVerification.token)){
+                throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
+            }
             // Add the employee to the database 
-            // 
+            // return sign-in token
+            var tokenString = GenerateJSONWebToken(user); 
+            return tokenString;
         }
 
         /// <summary>
@@ -42,10 +47,30 @@ namespace SEMES.Controllers
         /// <param name="id"></param>
         /// <returns>A retrived Admi entity.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost()]
-        public async Task<Admi> Login(UserModel userVerification)
+        public async Task<string> Login(UserModel userModel)
         {
             // Verify user credentials
-            // Retun Token
+            var user = AuthenticateUser(userModel);
+            if(user == null)
+                 throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
+            // return sign-in token
+            var tokenString = GenerateJSONWebToken(user); 
+            return tokenString;
+        }
+
+        private UserModel AuthenticateUser(UserModel login)    
+        {    
+            UserModel user = null;    
+    
+            //Validate the User Credentials    
+            //Demo Purpose, I have Passed HardCoded User Information    
+            if (login.username == "Jignesh")    
+            {    
+                user = new UserModel { Username = "Jignesh Trivedi", EmailAddress = "test.btest@gmail.com" };    
+            } else{
+                return null;
+            } 
+            return user;    
         }
 
         class UserVerification{
