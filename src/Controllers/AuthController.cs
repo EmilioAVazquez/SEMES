@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using SEMES.Data;
 using SEMES.Models;
 using System.Web.Http;
+using SEMES.Services;
 
 namespace SEMES.Controllers
 {
@@ -14,38 +15,45 @@ namespace SEMES.Controllers
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        public IAdmiRepository admiRepo {get;set;}
+        public IEmployeeRepository employeeRepo {get;set;}
+        private JWT jwtService ;
 
         private readonly ILogger<AdmiController> _logger;
 
         public AuthController(ILogger<AuthController> logger, IEmployeeRepository repo)
         {
             _logger = logger;
-            admiRepo = repo;
+            jwtService = new JWT();
+            employeeRepo = repo;
+            
         }
         /// <summary>
-        /// Creates a verified employee from the Token and an Employee model.
+        /// Given a registration token and a user filled model, this endpoint verifies the tokeb and adds the 
+        /// USer model top the database and activates the user's account.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>A retrived Admi entity.</returns>
+        /// <param name="userVerification"></param>
+        /// <returns>Returns a JWT token if the data is verified.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost()]
         public async Task<string> VerifyUser(UserVerification userVerification)
         {
             // Verify user token
-            if(ValidateJSONWebToken(userVerification.token)){
+            if(jwtService.ValidateJSONWebToken(userVerification.token)){
                 throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
             }
             // Add the employee to the database 
-            // return sign-in token
+            employeeRepo.AddEmployee(userVerification.user);
+            await employeeRepo.SaveAsync();
+            // Return sign-in token
             var tokenString = GenerateJSONWebToken(user); 
             return tokenString;
         }
 
         /// <summary>
-        /// Gets a Admi entity by its id.
+        /// Given the User's username (email) and their password, this endpoints verifies these credentials and 
+        /// returns a vlid token.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>A retrived Admi entity.</returns>
+        /// <param name="userModel"></param>
+        /// <returns>Rerurns a JWT token. </returns>
         [Microsoft.AspNetCore.Mvc.HttpPost()]
         public async Task<string> Login(UserModel userModel)
         {
@@ -54,7 +62,7 @@ namespace SEMES.Controllers
             if(user == null)
                  throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
             // return sign-in token
-            var tokenString = GenerateJSONWebToken(user); 
+            var tokenString = jwtService.GenerateJSONWebToken(user); 
             return tokenString;
         }
 
@@ -76,6 +84,7 @@ namespace SEMES.Controllers
         class UserVerification{
             Person user{get;set;}
             string token {get;set;}
+            string password{get;set;}
         }
 
         class UserModel{

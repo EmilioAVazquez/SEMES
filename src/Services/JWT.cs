@@ -2,22 +2,31 @@ namespace SEMES.Services
 {
     class JWT{
 
-        private string GenerateJSONWebToken(UserModel userInfo)    
+        private string mySecret;
+        private string myIssuer;
+        private string myAudience;
+
+        public JWT(){
+            myAudience = "";
+            myIssuer = "";
+            myAudience = "";
+        }
+        public string GenerateJSONWebToken(UserModel userInfo)    
         {    
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));    
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(mySecret));    
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);    
             
             var claims = new[] {    
-                new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),    
-                new Claim(JwtRegisteredClaimNames.Email, userInfo.EmailAddress),    
+                new Claim(JwtRegisteredClaimNames.Sub, userInfo.username),    
+                new Claim(JwtRegisteredClaimNames.Email, userInfo.email),    
                 new Claim("DateOfJoing", userInfo.DateOfJoing.ToString("yyyy-MM-dd")),    
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())    
             };    
             
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],    
-                _config["Jwt:Issuer"],    
+            var token = new JwtSecurityToken(myIssuer,    
+                myAudience,    
                 claims,    
-                expires: DateTime.Now.AddMinutes(120),    
+                // expires: DateTime.Now.AddMinutes(120),    
                 signingCredentials: credentials);    
             
             return new JwtSecurityTokenHandler().WriteToken(token);    
@@ -25,12 +34,7 @@ namespace SEMES.Services
 
         public bool ValidateJSONWebToken(string token)
         {
-            var mySecret = "asdv234234^&%&^%&^hjsdfb2%%%";
             var mySecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(mySecret));
-
-            var myIssuer = "http://mysite.com";
-            var myAudience = "http://myaudience.com";
-
             var tokenHandler = new JwtSecurityTokenHandler();
             try
             {
