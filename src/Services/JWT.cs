@@ -4,19 +4,20 @@ using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System;
+using Microsoft.Extensions.Options;
 
 namespace SEMES.Services
 {
-    class JWT{
+    class JWT:IJWT{
 
         private string mySecret;
         private string myIssuer;
         private string myAudience;
 
-        public JWT(){
-            myAudience = "";
-            myIssuer = "";
-            myAudience = "";
+        public JWT(JWTOptions options){
+            myAudience = options.audience;
+            myIssuer = options.issuer;
+            mySecret = options.key;
         }
         public string GenerateJSONWebToken(SemesUser user)    
         {    
@@ -34,7 +35,7 @@ namespace SEMES.Services
                 myIssuer,    
                 myAudience,    
                 claims,    
-                // expires: DateTime.Now.AddMinutes(120),    
+                //expires: DateTime.Now.AddMinutes(120),    
                 signingCredentials: credentials);    
             
             return new JwtSecurityTokenHandler().WriteToken(token);    

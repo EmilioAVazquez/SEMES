@@ -15,12 +15,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using SEMES.Data;
 using SEMES.Models;
+using SEMES.Services;
 using Microsoft.FeatureManagement;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
 
 namespace SEMES
 {
@@ -68,8 +70,8 @@ namespace SEMES
                     ValidateLifetime = true,    
                     ValidateIssuerSigningKey = true,    
                     ValidIssuer = Configuration["Jwt:Issuer"],    
-                    ValidAudience = Configuration["Jwt:Issuer"],    
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes("myFirstKey"))    
+                    ValidAudience = Configuration["Jwt:Audience"],    
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration["Jwt:Issuer"]))    
                 };    
             });    
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -97,6 +99,14 @@ namespace SEMES
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddSingleton<IJWT>(
+                new JWT(new JWTOptions(){
+                    audience = Configuration["Jwt:Audience"],
+                    issuer = Configuration["Jwt:Issuer"],
+                    key = Configuration["Jwt:Issuer"],
+            }));
+            // services.AddTransient<IJWT, JWT>();
+
             services.AddSwaggerGen();
             services.AddControllers();
             services.AddFeatureManagement();

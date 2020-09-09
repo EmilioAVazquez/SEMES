@@ -13,18 +13,18 @@ namespace SEMES.Controllers
 {
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-    public class EmployeeController : ControllerBase
+     class EmployeeController : ControllerBase
     {
         public IEmployeeRepository employeeRepo {get;set;}
-        private JWT jwtService;
+        private IJWT jwtService ;
 
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(ILogger<EmployeeController> logger, IEmployeeRepository repo)
+        public EmployeeController(ILogger<EmployeeController> logger, IEmployeeRepository repo, IJWT jwt)
         {
             _logger = logger;
             employeeRepo = repo;
-            jwtService = new JWT();
+            jwtService = jwt;
         }
         /// <summary>
         /// Gets a Employee entity by its id.

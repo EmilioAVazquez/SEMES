@@ -18,15 +18,15 @@ namespace SEMES.Controllers
     class AuthController : ControllerBase
     {
         public ISemesUserRepository userRepo {get;set;}
-        private JWT jwtService ;
+        private IJWT jwtService ;
         private UserManager<SemesUser>  userManager;
 
         private readonly ILogger<AuthController> _logger;
 
-        public AuthController(ILogger<AuthController> logger, ISemesUserRepository repo, UserManager<SemesUser> _userManager)
+        public AuthController(ILogger<AuthController> logger, ISemesUserRepository repo, UserManager<SemesUser> _userManager, IJWT jwt)
         {
             _logger = logger;
-            jwtService = new JWT();
+            jwtService = jwt;
             userRepo = repo;
             userManager = _userManager;
         }
