@@ -15,6 +15,7 @@ namespace SEMES
         public DbSet<Admi> Admi { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Client> Client { get; set; }
+        public DbSet<SemesUser> SemesUser {get;set;}
         // DbSet<T> type properties for other domain models
     }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SEMES.Data;
 using SEMES.Models;
+using SEMES.Services;
 using System.Web.Http;
 
 namespace SEMES.Controllers
@@ -15,6 +16,7 @@ namespace SEMES.Controllers
     public class EmployeeController : ControllerBase
     {
         public IEmployeeRepository employeeRepo {get;set;}
+        private JWT jwtService;
 
         private readonly ILogger<EmployeeController> _logger;
 
@@ -22,6 +24,7 @@ namespace SEMES.Controllers
         {
             _logger = logger;
             employeeRepo = repo;
+            jwtService = new JWT();
         }
         /// <summary>
         /// Gets a Employee entity by its id.
@@ -42,13 +45,14 @@ namespace SEMES.Controllers
         /// <param name="employee"></param>
         /// <returns>A action satisfaction result on the process(200 for OK, else somethign went wrong).</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut]
-        public async Task<Employee> Put(Employee employee)
+        public async Task Put(Employee employee)
         {
             // check credential are not already in db
             // Create token
+            var token = jwtService.GenerateJSONWebToken(new SemesUser(){Email=employee.Email});
             // Generate email
             // Send email
-            return e;
+            // return e;
         }
         /// <summary>
         /// Updates a given Employee entity. Valid employeeId required.

@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace SEMES.Models
 {
-    public class Person: IdentityUser
+    public class Person
     {
         /// <summary>
         /// First Name

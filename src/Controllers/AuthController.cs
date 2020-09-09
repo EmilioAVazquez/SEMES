@@ -8,46 +8,56 @@ using SEMES.Data;
 using SEMES.Models;
 using System.Web.Http;
 using SEMES.Services;
+using Microsoft.AspNetCore.Identity;
+using SEMES.Models;
 
 namespace SEMES.Controllers
 {
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    class AuthController : ControllerBase
     {
-        public IEmployeeRepository employeeRepo {get;set;}
+        public ISemesUserRepository userRepo {get;set;}
         private JWT jwtService ;
-        private UserManager userManager;
+        private UserManager<SemesUser>  userManager;
 
-        private readonly ILogger<AdmiController> _logger;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(ILogger<AuthController> logger, IEmployeeRepository repo, UserManager<IdentityUser> _userManager)
+        public AuthController(ILogger<AuthController> logger, ISemesUserRepository repo, UserManager<SemesUser> _userManager)
         {
             _logger = logger;
             jwtService = new JWT();
-            employeeRepo = repo;
+            userRepo = repo;
             userManager = _userManager;
         }
         /// <summary>
-        /// Given a registration token and a user filled model, this endpoint verifies the tokeb and adds the 
-        /// USer model top the database and activates the user's account.
+        /// Verifies and adds a new user to the platfrom from a registration token.
+        /// The registration token is created when the Admi adds the user and sends
+        /// a registration link (with the registration token in it) to the user's phone
+        /// and/or email.
         /// </summary>
         /// <param name="userVerification"></param>
-        /// <returns>Returns a JWT token if the data is verified.</returns>
+        /// <returns>Returns a JWT login token if the data is verified.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost()]
         public async Task<string> VerifyUser(UserVerification userVerification)
         {
-            // Verify user token
-            if(jwtService.ValidateJSONWebToken(userVerification.token)){
+            // 1) Check that the userModel has not already signed up
+            var user = userRepo.GetSemesUserByEmail(userVerification.user.Email);
+            // 2) Verify the registation token 
+            if(!jwtService.ValidateJSONWebToken(userVerification.token)){
                 throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
             }
-            // Add the employee to the database 
-            employeeRepo.AddEmployee(userVerification.user);
-            await employeeRepo.SaveAsync();
-            // Return sign-in token
-            var tokenString = GenerateJSONWebToken(user); 
-            return tokenString;
-        }
+            // 3) Verify that the user is not already verified
+            if(user != null){
+                throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
+            }
+            // 3) Add the user to the database 
+            userRepo.AddSemesUser(userVerification.user);
+            await userRepo.SaveAsync();
+            await userManager.AddPasswordAsync(await userRepo.GetSemesUserByEmail(userVerification.user.Email),userVerification.password);
+            // Create and Return login token
+            return jwtService.GenerateJSONWebToken(userVerification.user); 
+        } 
 
         /// <summary>
         /// Given the User's username (email) and their password, this endpoints verifies these credentials and 
@@ -58,40 +68,15 @@ namespace SEMES.Controllers
         [Microsoft.AspNetCore.Mvc.HttpPost()]
         public async Task<string> Login(UserModel userModel)
         {
-            // Verify user credentials
-            var flag =  userManager.CheckPassword(employeeRepo.GetEmployee(new Employee(){Email=userModel.email}), userModel.password);
-            // return sign-in token
-            var tokenString = jwtService.GenerateJSONWebToken(user); 
-            await flag;
-            if(flagh)
-                return tokenString;
-            throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
-        }
-
-        private UserModel AuthenticateUser(UserModel login)    
-        {    
-            UserModel user = null;    
-    
-            //Validate the User Credentials    
-            //Demo Purpose, I have Passed HardCoded User Information    
-            if (login.username == "Jignesh")    
-            {    
-                user = new UserModel { Username = "Jignesh Trivedi", EmailAddress = "test.btest@gmail.com" };    
-            } else{
-                return null;
-            } 
-            return user;    
-        }
-
-        class UserVerification{
-            Person user{get;set;}
-            string token {get;set;}
-            string password{get;set;}
-        }
-
-        class UserModel{
-            string email{get;set;}
-            string password{get;set;}
+            // 1) Verify user credentials, e.g. password and email
+            var user =  userManager.CheckPasswordAsync(await userRepo.GetSemesUserByEmail(userModel.email), userModel.password);
+            // 2) Create token 
+            var tokenString = jwtService.GenerateJSONWebToken(await userRepo.GetSemesUserByEmail(userModel.email)); 
+            await user;
+            // 3) Check if credentials are correct
+            if(! await user)
+                throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
+            return tokenString;
         }
     }
 }

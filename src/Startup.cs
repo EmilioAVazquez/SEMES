@@ -14,8 +14,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using SEMES.Data;
+using SEMES.Models;
 using Microsoft.FeatureManagement;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace SEMES
 {
@@ -53,7 +58,7 @@ namespace SEMES
                 options.User.RequireUniqueEmail = true;
             });
             // Add authetication services
-            services..AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
             .AddJwtBearer(options =>    
             {    
                 options.TokenValidationParameters = new TokenValidationParameters    
@@ -64,7 +69,7 @@ namespace SEMES
                     ValidateIssuerSigningKey = true,    
                     ValidIssuer = Configuration["Jwt:Issuer"],    
                     ValidAudience = Configuration["Jwt:Issuer"],    
-                    IssuerSigningKey = new SymmetricSecurityKey("myFirstKey")    
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes("myFirstKey"))    
                 };    
             });    
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -97,7 +102,7 @@ namespace SEMES
             services.AddFeatureManagement();
             // services.AddDbContext<SemesDbContext>(options => options.UseNpgsql("Host=34.70.240.234;Database=Stella;Username=postgres;Password=chavita"));
             services.AddDbContext<SemesDbContext>(options => options.UseInMemoryDatabase(databaseName:"Products Test"));
-            services.AddDefaultIdentity<Person>().AddEntityFrameworkStores<SemesDbContext>();
+            services.AddDefaultIdentity<SemesUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SemesDbContext>();
             services.AddTransient<IAdmiRepository, AdmiRepository>();
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -106,16 +111,14 @@ namespace SEMES
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IWearhouseRepository, WearhouseRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
+            services.AddTransient<ISemesUserRepository, SemesUserRepository>();
             // Email Services
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseIdentity();
-            app.UseAuthentication();
             // Enables JWT authentication
             app.UseAuthentication();  
             // Enable middleware to serve generated Swagger as a JSON endpoint.

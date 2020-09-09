@@ -1,3 +1,10 @@
+using SEMES.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using System;
+
 namespace SEMES.Services
 {
     class JWT{
@@ -11,19 +18,20 @@ namespace SEMES.Services
             myIssuer = "";
             myAudience = "";
         }
-        public string GenerateJSONWebToken(UserModel userInfo)    
+        public string GenerateJSONWebToken(SemesUser user)    
         {    
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(mySecret));    
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);    
             
             var claims = new[] {    
-                new Claim(JwtRegisteredClaimNames.Sub, userInfo.username),    
-                new Claim(JwtRegisteredClaimNames.Email, userInfo.email),    
-                new Claim("DateOfJoing", userInfo.DateOfJoing.ToString("yyyy-MM-dd")),    
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),    
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),    
+                // new Claim("DateOfJoing", user.DateOfJoing.ToString("yyyy-MM-dd")),    
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())    
             };    
             
-            var token = new JwtSecurityToken(myIssuer,    
+            var token = new JwtSecurityToken(
+                myIssuer,    
                 myAudience,    
                 claims,    
                 // expires: DateTime.Now.AddMinutes(120),    
