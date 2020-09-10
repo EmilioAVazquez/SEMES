@@ -15,15 +15,15 @@ namespace SEMES.Controllers
 {
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-    class AuthController : ControllerBase
+    public class SemesUserController : ControllerBase
     {
         public ISemesUserRepository userRepo {get;set;}
         private IJWT jwtService ;
         private UserManager<SemesUser>  userManager;
 
-        private readonly ILogger<AuthController> _logger;
-
-        public AuthController(ILogger<AuthController> logger, ISemesUserRepository repo, UserManager<SemesUser> _userManager, IJWT jwt)
+        private readonly ILogger<SemesUserController> _logger;
+        /// <summary>TransactionAction Entity</summary>
+        public SemesUserController(ILogger<SemesUserController> logger, ISemesUserRepository repo, UserManager<SemesUser> _userManager, IJWT jwt)
         {
             _logger = logger;
             jwtService = jwt;
@@ -38,23 +38,23 @@ namespace SEMES.Controllers
         /// </summary>
         /// <param name="userVerification"></param>
         /// <returns>Returns a JWT login token if the data is verified.</returns>
-        [Microsoft.AspNetCore.Mvc.HttpPost()]
+        [Microsoft.AspNetCore.Mvc.HttpPost("verify")]
         public async Task<string> VerifyUser(UserVerification userVerification)
         {
             // 1) Check that the userModel has not already signed up
             var user = userRepo.GetSemesUserByEmail(userVerification.user.Email);
-            // 2) Verify the registation token 
-            if(!jwtService.ValidateJSONWebToken(userVerification.token)){
+            // // 2) Verify the registation token 
+            // if(!jwtService.ValidateJSONWebToken(userVerification.token)){
+            //     throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
+            // }
+            // // 3) Verify that the user is not already verified
+            if(user == null){
                 throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
             }
-            // 3) Verify that the user is not already verified
-            if(user != null){
-                throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
-            }
-            // 3) Add the user to the database 
+            await userManager.AddPasswordAsync(userVerification.user,userVerification.password);
+            // 3) Add the user to the database j
             userRepo.AddSemesUser(userVerification.user);
             await userRepo.SaveAsync();
-            await userManager.AddPasswordAsync(await userRepo.GetSemesUserByEmail(userVerification.user.Email),userVerification.password);
             // Create and Return login token
             return jwtService.GenerateJSONWebToken(userVerification.user); 
         } 
@@ -65,8 +65,8 @@ namespace SEMES.Controllers
         /// </summary>
         /// <param name="userModel"></param>
         /// <returns>Rerurns a JWT token. </returns>
-        [Microsoft.AspNetCore.Mvc.HttpPost()]
-        public async Task<string> Login(UserModel userModel)
+        [Microsoft.AspNetCore.Mvc.HttpPost("login")]
+        public async Task<string> LoginUser(UserModel userModel)
         {
             // 1) Verify user credentials, e.g. password and email
             var user =  userManager.CheckPasswordAsync(await userRepo.GetSemesUserByEmail(userModel.email), userModel.password);
@@ -77,6 +77,18 @@ namespace SEMES.Controllers
             if(! await user)
                 throw new HttpResponseException(System.Net.HttpStatusCode.Unauthorized);
             return tokenString;
+        }
+
+        /// <summary>
+        /// Given the User's username (email) and their password, this endpoints verifies these credentials and 
+        /// returns a vlid token.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>Rerurns a JWT token. </returns>
+        [Microsoft.AspNetCore.Mvc.HttpPost("add")]
+        public async Task<string> AddUser(SemesUser user)
+        {
+            return  jwtService.GenerateJSONWebToken(user); 
         }
     }
 }

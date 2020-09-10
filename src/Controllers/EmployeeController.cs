@@ -13,10 +13,10 @@ namespace SEMES.Controllers
 {
     [ApiController]
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-     class EmployeeController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
         public IEmployeeRepository employeeRepo {get;set;}
-        private IJWT jwtService ;
+        private readonly IJWT jwtService ;
 
         private readonly ILogger<EmployeeController> _logger;
 

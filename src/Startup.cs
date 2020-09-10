@@ -23,6 +23,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace SEMES
 {
@@ -71,7 +72,7 @@ namespace SEMES
                     ValidateIssuerSigningKey = true,    
                     ValidIssuer = Configuration["Jwt:Issuer"],    
                     ValidAudience = Configuration["Jwt:Audience"],    
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration["Jwt:Issuer"]))    
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]))    
                 };    
             });    
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -103,14 +104,14 @@ namespace SEMES
                 new JWT(new JWTOptions(){
                     audience = Configuration["Jwt:Audience"],
                     issuer = Configuration["Jwt:Issuer"],
-                    key = Configuration["Jwt:Issuer"],
+                    key = Configuration["Jwt:Key"],
             }));
             // services.AddTransient<IJWT, JWT>();
-
-            services.AddSwaggerGen();
+            Console.WriteLine("\n\n\ntrdfyhiugfhjk!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!\n\n\n\n\n"+Configuration["Jwt:Audience"]);
             services.AddControllers();
+            services.AddSwaggerGen();
             services.AddFeatureManagement();
-            // services.AddDbContext<SemesDbContext>(options => options.UseNpgsql("Host=34.70.240.234;Database=Stella;Username=postgres;Password=chavita"));
+            // services.AddDbContext<SemesDbContext>(options => options.UseNpgsql(Configuratio["Postgres:ConnectionString"]));
             services.AddDbContext<SemesDbContext>(options => options.UseInMemoryDatabase(databaseName:"Products Test"));
             services.AddDefaultIdentity<SemesUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SemesDbContext>();
             services.AddTransient<IAdmiRepository, AdmiRepository>();
